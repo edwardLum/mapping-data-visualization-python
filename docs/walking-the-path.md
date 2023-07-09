@@ -2,9 +2,7 @@
 
 ## Intro
 
-## Summary
-
-## Findings
+## Learnings
 
 ## Questions
 
