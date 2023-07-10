@@ -26,6 +26,13 @@ NumPy is the fundamental package for scientific computing in Python.
 
 User guide [here](https://numpy.org/doc/stable/user/index.html#user), absolute basics [here](https://numpy.org/doc/stable/user/absolute_beginners.html)
 
+#### Pandas
+
+Useful methods:
+
+**pd.concat**: Concatenate a list of data frames
+
+**df.groupby**: Dataframe method to group by given column
 
 
 
