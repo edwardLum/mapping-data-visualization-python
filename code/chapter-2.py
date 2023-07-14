@@ -49,6 +49,9 @@ for f in files:
 
 merged_df = pd.concat(dataframe_list)
 
+
+# Pie Chart plotting distributions of crimes
+
 type_counts = merged_df.groupby('Crime type').size()
 
 # Draw pie
@@ -56,14 +59,24 @@ type_counts = merged_df.groupby('Crime type').size()
 wedgeprops={'linewidth': 1, 'edgecolor': 'white'}
 textprops={'fontsize': 10, 'fontstyle': 'italic'}
 
-fig, ax = plt.subplots(1, 1)
-fig.set_size_inches(15, 10)
-type_counts.plot(kind='pie', ax=ax,
+fig, ax = plt.subplots(1, 2)
+fig.set_size_inches(60, 7)
+
+type_counts.plot(kind='pie', ax=ax[0],
                  wedgeprops=wedgeprops,
                  textprops=textprops)
 
-ax.set_title('Crime Types', fontsize=18)
-ax.set_ylabel('')
+ax[0].set_title('Crime Types', fontsize=18)
+ax[0].set_ylabel('')
+
+# Bar Chart plotting trend of crimes over years
+monthly_counts = merged_df.groupby('Month').size()
+
+monthly_counts.plot(kind='bar', ax=ax[1])
+monthly_counts.plot(kind='line', ax=ax[1], color='red', marker='o')
+
+ax[1].set_title('Total Crime by Month')
+ax[1].set_ylabel('Total Incidents')
 
 plt.tight_layout()
 plt.show()
