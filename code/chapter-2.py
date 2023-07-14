@@ -56,4 +56,8 @@ fig, ax = plt.subplots(1, 1)
 fig.set_size_inches(15, 10)
 type_counts.plot(kind='pie', ax=ax)
 
+ax.set_title('Crime Types', fontsize=18)
+ax.set_ylabel('')
+
+plt.tight_layout()
 plt.show()
