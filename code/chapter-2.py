@@ -52,9 +52,15 @@ merged_df = pd.concat(dataframe_list)
 type_counts = merged_df.groupby('Crime type').size()
 
 # Draw pie
+
+wedgeprops={'linewidth': 1, 'edgecolor': 'white'}
+textprops={'fontsize': 10, 'fontstyle': 'italic'}
+
 fig, ax = plt.subplots(1, 1)
 fig.set_size_inches(15, 10)
-type_counts.plot(kind='pie', ax=ax)
+type_counts.plot(kind='pie', ax=ax,
+                 wedgeprops=wedgeprops,
+                 textprops=textprops)
 
 ax.set_title('Crime Types', fontsize=18)
 ax.set_ylabel('')
