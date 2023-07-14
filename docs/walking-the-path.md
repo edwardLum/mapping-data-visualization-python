@@ -30,9 +30,16 @@ User guide [here](https://numpy.org/doc/stable/user/index.html#user), absolute b
 
 Useful methods:
 
-**pd.concat**: Concatenate a list of data frames
+**pd.concat**: Concatenate a list of data frames. Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html)
 
-**df.groupby**: Dataframe method to group by given column
+***
+**df.groupby**: Dataframe method to group by given column. Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.groupby.html), check user guide for examples [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html). 
+
+By “group by” we are referring to a process involving one or more of the following steps:
+
+* Splitting the data into groups based on some criteria.
+* Applying a function to each group independently.
+* Combining the results into a data structure.
 
 
 
