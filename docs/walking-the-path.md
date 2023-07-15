@@ -26,6 +26,10 @@ NumPy is the fundamental package for scientific computing in Python.
 
 User guide [here](https://numpy.org/doc/stable/user/index.html#user), absolute basics [here](https://numpy.org/doc/stable/user/absolute_beginners.html)
 
+**Useful methods**
+
+**np.exp**: Calculate the exponential of all elements in the input array. Ref [here](https://numpy.org/doc/stable/reference/generated/numpy.exp.html).
+
 #### Pandas
 
 **Data Structures**
