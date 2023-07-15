@@ -30,9 +30,11 @@ User guide [here](https://numpy.org/doc/stable/user/index.html#user), absolute b
 
 **Data Structures**
 
+Guide page [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#basics-dataframe)
+
 **Data Frames**
 
-Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) and user guide [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#basics-dataframe).
+DataFrame is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. Reference [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html) and user guide [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#basics-dataframe).
 
 Useful methods:
 
