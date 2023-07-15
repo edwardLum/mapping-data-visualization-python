@@ -14,7 +14,6 @@ speeds = pd.DataFrame(
     columns=("class", "order", "max_speed"),
 )
 
-
 class_grouping = speeds.groupby("class")
 
 order_grouping = speeds.groupby("order", axis="columns")
