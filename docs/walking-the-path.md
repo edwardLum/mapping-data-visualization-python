@@ -52,7 +52,9 @@ By “group by” we are referring to a process involving one or more of the fol
 
 ### CDS
 
-The Climate Data Store (CDS) Application Program Interface (API) is a service providing programmatic access to CDS data. Instructions on how to use the API [here](https://cds.climate.copernicus.eu/api-how-to).
+The Climate Data Store (CDS) Application Program Interface (API) is a service providing programmatic access to CDS data. Instructions on how to use the API [here](https://cds.climate.copernicus.eu/api-how-to), macOS specific [here](https://confluence.ecmwf.int/display/CKB/How+to+install+and+use+CDS+API+on+macOS).
+
+Building a query [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form)
 
 ##Further Reading
 
