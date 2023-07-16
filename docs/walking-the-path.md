@@ -48,17 +48,17 @@ By “group by” we are referring to a process involving one or more of the fol
 
 **pd.concat**: Concatenate a list of data frames. Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html)
 
-##Further Reading
-
-[Categorical Data](https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html#categorical): Categoricals are a pandas data type corresponding to categorical variables in statistics. A categorical variable takes on a limited, and usually fixed, number of possible values (categories; levels in R). Examples are gender, social class, blood type, country affiliation, observation time or rating via Likert scales.
-
-[dtypes](https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#basics-dtypes): For the most part, pandas uses NumPy arrays and dtypes for Series or individual columns of a DataFrame. NumPy provides support for float, int, bool, timedelta64 and datetime64(note that NumPy does not support timezone-aware datetimes).
-
 ## APIs
 
 ### CDS
 
 The Climate Data Store (CDS) Application Program Interface (API) is a service providing programmatic access to CDS data. Instructions on how to use the API [here](https://cds.climate.copernicus.eu/api-how-to).
+
+##Further Reading
+
+[Categorical Data](https://pandas.pydata.org/pandas-docs/stable/user_guide/categorical.html#categorical): Categoricals are a pandas data type corresponding to categorical variables in statistics. A categorical variable takes on a limited, and usually fixed, number of possible values (categories; levels in R). Examples are gender, social class, blood type, country affiliation, observation time or rating via Likert scales.
+
+[dtypes](https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#basics-dtypes): For the most part, pandas uses NumPy arrays and dtypes for Series or individual columns of a DataFrame. NumPy provides support for float, int, bool, timedelta64 and datetime64(note that NumPy does not support timezone-aware datetimes).
 
 ## Questions
 
