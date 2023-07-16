@@ -68,7 +68,7 @@ Building a query [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reana
 
 ###Exercise 1.
 
-1. Download data temparature from [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form)
+1. Download data temperature from [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form)
 2. Read data with Xarray
 3. Plot time series for a specific location
 4. Rescale to daily temparature
