@@ -48,6 +48,12 @@ By “group by” we are referring to a process involving one or more of the fol
 
 **pd.concat**: Concatenate a list of data frames. Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html)
 
+### Xarray
+
+Xarray introduces labels in the form of dimensions, coordinates and attributes on top of raw NumPy-like multidimensional arrays, which allows for a more intuitive, more concise, and less error-prone developer experience. User guide [here](https://docs.xarray.dev/en/stable/user-guide/index.html)
+
+
+
 ## APIs
 
 ### CDS
