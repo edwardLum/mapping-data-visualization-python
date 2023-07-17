@@ -22,6 +22,12 @@ NumPy is the fundamental package for scientific computing in Python.
 
 User guide [here](https://numpy.org/doc/stable/user/index.html#user), absolute basics [here](https://numpy.org/doc/stable/user/absolute_beginners.html)
 
+Vectorization describes the absence of any explicit looping, indexing, etc., in the code - these things are taking place, of course, just “behind the scenes” in optimized, pre-compiled C code.
+
+Broadcasting is the term used to describe the implicit element-by-element behavior of operations; generally speaking, in NumPy all operations, not just arithmetic operations, but logical, bit-wise, functional, etc., behave in this implicit element-by-element fashion, i.e., they broadcast. Moreover, in the example above, a and b could be multidimensional arrays of the same shape, or a scalar and an array, or even two arrays of with different shapes, provided that the smaller array is “expandable” to the shape of the larger in such a way that the resulting broadcast is unambiguous. For detailed “rules” of broadcasting see [Broadcasting](https://numpy.org/devdocs/user/basics.broadcasting.html#basics-broadcasting).
+
+Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrated-the-visual-guide-to-numpy-3b1d4976de1d) in Medium
+
 **Useful methods**
 
 **np.exp**: Calculate the exponential of all elements in the input array. Ref [here](https://numpy.org/doc/stable/reference/generated/numpy.exp.html).
