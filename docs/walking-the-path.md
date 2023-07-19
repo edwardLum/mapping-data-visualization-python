@@ -94,6 +94,21 @@ Building a query [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reana
 6. Save only min, max, mean
 7. Find mean day/night temp 
 
+**Data Structure**
+
+Dimension Coordinates:
+
+* Time
+* Steps
+* Longitude
+* Latitude
+
+Non-dimensions Coordinates:
+
+* Valid Time
+* Surface
+* Ensemble member numerical id
+
 ## Notes
 
 ## Future Work
