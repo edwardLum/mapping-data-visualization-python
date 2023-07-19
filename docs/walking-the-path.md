@@ -58,7 +58,13 @@ By “group by” we are referring to a process involving one or more of the fol
 
 Xarray introduces labels in the form of dimensions, coordinates and attributes on top of raw NumPy-like multidimensional arrays, which allows for a more intuitive, more concise, and less error-prone developer experience. User guide [here](https://docs.xarray.dev/en/stable/user-guide/index.html)
 
+**Data Array**
 
+A multi-dimensional array with labeled or named dimensions. DataArray objects add metadata such as dimension names, coordinates, and attributes (defined below) to underlying “unlabeled” data structures such as numpy and Dask arrays. If its optional name property is set, it is a named DataArray.
+
+**Data Set**
+
+A dict-like collection of DataArray objects with aligned dimensions. Thus, most operations that can be performed on the dimensions of a single DataArray can be performed on a dataset. Datasets have data variables (see Variable below), dimensions, coordinates, and attributes.
 
 ## APIs
 
