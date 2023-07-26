@@ -2,6 +2,8 @@ import os
 import xarray as xr
 import matplotlib.pyplot as plt
 
+import matplotlib.dates as mdates
+
 home_dir = os.path.expanduser('~')
 file_path = os.path.join(home_dir, 'Code/star-struck/data/download.grib')
 
@@ -36,7 +38,12 @@ mean_temp = subset.mean(dim=['latitude', 'longitude'])
 
 mean_temp = mean_temp.mean(dim=['step'])
 
-mean_temp.plot(color='red', linestyle='--')
+mean_temp.plot.line()
+# Here we use plt.gca() (Get Current Axes) to get the axes object and then modify it
+plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every day
+plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Set format
+plt.xticks(rotation=45)  # Rotate labels for readability
+
 plt.title('Mean temperature over time')
 plt.ylabel('Temperature (Kelvin)')
 plt.show()
