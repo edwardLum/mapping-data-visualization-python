@@ -32,12 +32,20 @@ lat_min, lat_max = 38.25, 37.70
 lon_min, lon_max = 23.45, 24.25
 subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
 
+mean_temp = subset.mean(dim=['latitude', 'longitude'])
+
+mean_temp = mean_temp.mean(dim=['step'])
+
+mean_temp.plot(color='red', linestyle='--')
+plt.title('Mean temperature over time')
+plt.ylabel('Temperature (Kelvin)')
+plt.show()
 # Dataset methods
-print(ds.t2m.dims)
+# print(ds.t2m.dims)
 
-print(ds.t2m.coords)
+# print(ds.t2m.coords)
 
-print(ds.t2m.data)
+# print(ds.t2m.data)
 
 # subset.plot()
 
