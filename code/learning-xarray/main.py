@@ -32,5 +32,13 @@ lat_min, lat_max = 38.25, 37.70
 lon_min, lon_max = 23.45, 24.25
 subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
 
-subset.plot()
-plt.show()
+# Dataset methods
+print(ds.t2m.dims)
+
+print(ds.t2m.coords)
+
+print(ds.t2m.data)
+
+# subset.plot()
+
+# plt.show()
