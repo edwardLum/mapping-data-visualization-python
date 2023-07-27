@@ -31,7 +31,7 @@ def plot_time_series(ds, location):
     plt.xticks(rotation=45)  # Rotate labels for readability
     
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-
+    daily_mean_temp.plot.line('bo-', linewidth=2)  # a thicker blue line
     plt.title('Mean temperature over time')
     plt.ylabel('Temperature (Kelvin)')
     plt.show()
