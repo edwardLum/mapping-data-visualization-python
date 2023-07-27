@@ -5,6 +5,13 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 # Exercise 1
+def load_dataset(file_path):
+    ds = xr.open_dataset(file_path, engine='cfgrib')
+
+    return ds
+
+
+
 def plot_time_series(ds, location):
 
     lat_min, lat_max = location['latitude']
@@ -39,8 +46,7 @@ if __name__ == "__main__":
     home_dir = os.path.expanduser('~')
     file_path = os.path.join(home_dir, 'Code/star-struck/data/download.grib')
 
-    ds = xr.open_dataset(file_path, engine='cfgrib')
-
+    ds = load_dataset(file_path)
     # Define Attica region
     lat_min, lat_max = 38.25, 37.70 
     lon_min, lon_max = 23.45, 24.25
