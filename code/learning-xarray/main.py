@@ -19,29 +19,23 @@ def plot_time_series(ds, location):
 
     subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
 
-    mean_temp = subset.mean(dim=['latitude', 'longitude'])
-    mean_temp = mean_temp.mean(dim=['step'])
+    spatial_mean = subset.mean(dim=['latitude', 'longitude'])
+    daily_mean_temp = spatial_mean.mean(dim=['step'])
 
-    mean_temp.plot.line()
+    daily_mean_temp.plot.line()
 
     # Use plt.gca() (Get Current Axes) to get the axes object and then modify it
     plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every second day
     plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Set format
+    plt.gcf().autofmt_xdate() # autoformat the x-axis for better readability
     plt.xticks(rotation=45)  # Rotate labels for readability
+    
+    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 
     plt.title('Mean temperature over time')
     plt.ylabel('Temperature (Kelvin)')
     plt.show()
-# Dataset methods
-# print(ds.t2m.dims)
 
-# print(ds.t2m.coords)
-
-# print(ds.t2m.data)
-
-# subset.plot()
-
-# plt.show()
 if __name__ == "__main__":
     home_dir = os.path.expanduser('~')
     file_path = os.path.join(home_dir, 'Code/star-struck/data/download.grib')
