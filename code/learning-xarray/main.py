@@ -10,30 +10,37 @@ def load_dataset(file_path):
 
     return ds
 
+def format_timeseries(fig, ax, title):
+   
+    ax.set_title(title , fontsize=16) # Set title
+    # Use ax.gca() (Get Current axs) to get the axs object and then modify it
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every fifth day
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Set format
+    
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.set_xlabel('Date', fontsize=14)
+    ax.set_ylabel('Temperature (K)', fontsize=14)
+       
+    fig.autofmt_xdate()
 
-
-def plot_time_series(ds, location):
+def plot_time_series(ds, location, location_desc):
 
     lat_min, lat_max = location['latitude']
     lon_min, lon_max = location['longitude']
 
-    subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
+    spatial_subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
 
-    spatial_mean = subset.mean(dim=['latitude', 'longitude'])
+    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
     daily_mean_temp = spatial_mean.mean(dim=['step'])
 
-    daily_mean_temp.plot.line()
+    print(type(daily_mean_temp.time.values[0]))
 
-    # Use plt.gca() (Get Current Axes) to get the axes object and then modify it
-    plt.gca().xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every second day
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Set format
-    plt.gcf().autofmt_xdate() # autoformat the x-axis for better readability
-    plt.xticks(rotation=45)  # Rotate labels for readability
-    
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    daily_mean_temp.plot.line('bo-', linewidth=2)  # a thicker blue line
-    plt.title('Mean temperature over time')
-    plt.ylabel('Temperature (Kelvin)')
+
+    fig, ax = plt.subplots()
+    daily_mean_temp.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
+    title = "Daily Mean 2m Temperature over " + location_desc
+    format_timeseries(fig, ax, title)
+
     plt.show()
 
 if __name__ == "__main__":
@@ -48,4 +55,4 @@ if __name__ == "__main__":
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
     
-    plot_time_series(ds, location)
+    plot_time_series(ds, location, "Attica, Greece")
