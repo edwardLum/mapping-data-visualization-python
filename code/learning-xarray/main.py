@@ -10,12 +10,12 @@ def load_dataset(file_path):
 
     return ds
 
-def format_timeseries(fig, ax, title):
+def format_timeseries(fig, ax, title, date_format):
    
     ax.set_title(title , fontsize=16) # Set title
     # Use ax.gca() (Get Current axs) to get the axs object and then modify it
     ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every fifth day
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Set format
+    ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))  # Set format
     
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
     ax.set_xlabel('Date', fontsize=14)
@@ -31,12 +31,13 @@ def slice_location(ds, location):
 
     return spatial_subset
 
-def plot_daily_series(da):
+def plot_daily_series(da, region_name):
 
     fig, ax = plt.subplots()
     da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
-    title = "Daily Mean 2m Temperature over Attica"
-    format_timeseries(fig, ax, title)
+    title = "Daily Mean 2m Temperature over " + region_name
+    date_format = '%Y-%m-%d'
+    format_timeseries(fig, ax, title, date_format)
 
     plt.show()
 
@@ -48,6 +49,7 @@ if __name__ == "__main__":
     # Define Attica region
     lat_min, lat_max = 38.25, 37.70 
     lon_min, lon_max = 23.45, 24.25
+    region_name = 'Attica'
 
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
@@ -58,6 +60,6 @@ if __name__ == "__main__":
 
     daily_mean_temp = spatial_mean.mean(dim=['step'])
 
-    plot_daily_series(daily_mean_temp)
+    plot_daily_series(daily_mean_temp, region_name)
 
 
