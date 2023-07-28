@@ -5,7 +5,11 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 # Exercise 1
-def load_dataset(file_path):
+def load_dataset(filename):
+
+    home_dir = os.path.expanduser('~')
+    file_path = os.path.join(home_dir, 'Code/star-struck/data/', filename)
+
     ds = xr.open_dataset(file_path, engine='cfgrib')
 
     return ds
@@ -31,7 +35,7 @@ def slice_location(ds, location):
 
     return spatial_subset
 
-def plot_daily_series(da, region_name):
+def plot_time_series(da, region_name):
 
     fig, ax = plt.subplots()
     da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
@@ -40,6 +44,17 @@ def plot_daily_series(da, region_name):
     format_timeseries(fig, ax, title, date_format)
 
     plt.show()
+
+def process_data_daily_mean(ds):
+    spatial_subset = slice_location(ds, location) 
+    
+    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
+
+    daily_mean_temp = spatial_mean.mean(dim=['step'])
+
+    return daily_mean_temp
+
+
 
 if __name__ == "__main__":
     home_dir = os.path.expanduser('~')
@@ -54,12 +69,7 @@ if __name__ == "__main__":
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
     
-    spatial_subset = slice_location(ds, location) 
-    
-    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
-
-    daily_mean_temp = spatial_mean.mean(dim=['step'])
-
-    plot_daily_series(daily_mean_temp, region_name)
+    daily_mean_temp = process_data_daily_mean(ds)
+    plot_time_series(daily_mean_temp, region_name)
 
 
