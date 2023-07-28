@@ -23,22 +23,19 @@ def format_timeseries(fig, ax, title):
        
     fig.autofmt_xdate()
 
-def plot_time_series(ds, location, location_desc):
-
+def slice_location(ds, location):
     lat_min, lat_max = location['latitude']
     lon_min, lon_max = location['longitude']
 
     spatial_subset = ds.t2m.sel(latitude=slice(lat_min, lat_max), longitude=slice(lon_min, lon_max))
 
-    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
-    daily_mean_temp = spatial_mean.mean(dim=['step'])
+    return spatial_subset
 
-    print(type(daily_mean_temp.time.values[0]))
-
+def plot_daily_series(da):
 
     fig, ax = plt.subplots()
-    daily_mean_temp.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
-    title = "Daily Mean 2m Temperature over " + location_desc
+    da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
+    title = "Daily Mean 2m Temperature over Attica"
     format_timeseries(fig, ax, title)
 
     plt.show()
@@ -55,4 +52,12 @@ if __name__ == "__main__":
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
     
-    plot_time_series(ds, location, "Attica, Greece")
+    spatial_subset = slice_location(ds, location) 
+    
+    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
+
+    daily_mean_temp = spatial_mean.mean(dim=['step'])
+
+    plot_daily_series(daily_mean_temp)
+
+
