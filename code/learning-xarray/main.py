@@ -1,7 +1,8 @@
 import os
+from datetime import datetime
+
 import xarray as xr
 import matplotlib.pyplot as plt
-
 import matplotlib.dates as mdates
 
 # Exercise 1
@@ -18,7 +19,7 @@ def format_timeseries(fig, ax, title, date_format):
    
     ax.set_title(title , fontsize=16) # Set title
     # Use ax.gca() (Get Current axs) to get the axs object and then modify it
-    ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every fifth day
+    ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))  # Set major ticks every fifth day
     ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))  # Set format
     
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
@@ -35,17 +36,17 @@ def slice_location(ds, location):
 
     return spatial_subset
 
-def plot_time_series(da, region_name):
+def plot_time_series(da, region_name, date_format):
 
     fig, ax = plt.subplots()
     da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
     title = "Daily Mean 2m Temperature over " + region_name
-    date_format = '%Y-%m-%d'
     format_timeseries(fig, ax, title, date_format)
 
     plt.show()
 
-def process_data_daily_mean(ds):
+
+def process_data_daily_mean(ds, location):
     spatial_subset = slice_location(ds, location) 
     
     spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
@@ -53,6 +54,15 @@ def process_data_daily_mean(ds):
     daily_mean_temp = spatial_mean.mean(dim=['step'])
 
     return daily_mean_temp
+
+def process_data_hourly_mean(ds, location, day):
+    spatial_subset = slice_location(ds, location) 
+    
+    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
+
+    hourly_temp = spatial_mean.sel(time=day)
+
+    return hourly_temp
 
 
 
@@ -65,11 +75,17 @@ if __name__ == "__main__":
     lat_min, lat_max = 38.25, 37.70 
     lon_min, lon_max = 23.45, 24.25
     region_name = 'Attica'
-
+    
+    print(ds)
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
     
-    daily_mean_temp = process_data_daily_mean(ds)
-    plot_time_series(daily_mean_temp, region_name)
-
+    date_format = '%Y-%m-%d'
+    hourly_format = '%H:%M'
+    
+    day = '2022-07-01'
+    daily_mean_temp = process_data_daily_mean(ds, location)
+    hourly_mean_temp = process_data_hourly_mean(ds, location, day)
+    # plot_time_series(hourly_mean_temp, region_name, hourly_format)
+    print(hourly_mean_temp.step)
 
