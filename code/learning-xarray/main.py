@@ -83,8 +83,16 @@ def process_data_hourly_mean(ds, location, day):
 
     return hourly_temp
 
-def fname(arg):
-    pass
+def process_data_hourly(ds, location):
+
+    spatial_subset = slice_location(ds, location) 
+    
+    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
+
+    hourly_temperature = spatial_mean.groupby('step').mean('time')
+
+    return hourly_temperature
+
 
 
 if __name__ == "__main__":
@@ -92,6 +100,7 @@ if __name__ == "__main__":
     file_path = os.path.join(home_dir, 'Code/star-struck/data/download.grib')
 
     ds = load_dataset(file_path)
+    ds['t2m'] -= 273.15
     # Define Attica region
     lat_min, lat_max = 38.25, 37.70 
     lon_min, lon_max = 23.45, 24.25
@@ -106,7 +115,7 @@ if __name__ == "__main__":
     
     day = '2022-07-01'
     daily_mean_temp = process_data_daily_mean(ds, location)
-    hourly_mean_temp = process_data_hourly_mean(ds, location, day)
+    hourly_mean_temp = process_data_hourly(ds, location)
     plot_hour_series(hourly_mean_temp, region_name, hourly_format)
     # plot_time_series(hourly_mean_temp, region_name, hourly_format)
     print(hourly_mean_temp.step)
