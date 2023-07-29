@@ -19,11 +19,22 @@ def format_timeseries(fig, ax, title, date_format):
    
     ax.set_title(title , fontsize=16) # Set title
     # Use ax.gca() (Get Current axs) to get the axs object and then modify it
-    ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))  # Set major ticks every fifth day
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=2))  # Set major ticks every fifth day
     ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))  # Set format
     
     ax.grid(True, which='both', linestyle='--', linewidth=0.5)
     ax.set_xlabel('Date', fontsize=14)
+    ax.set_ylabel('Temperature (K)', fontsize=14)
+       
+    fig.autofmt_xdate()
+
+def format_hourseries(fig, ax, title, date_format):
+   
+    ax.set_title(title , fontsize=16) # Set title
+    # Use ax.gca() (Get Current axs) to get the axs object and then modify it
+    
+    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
+    ax.set_xlabel('Hours', fontsize=14)
     ax.set_ylabel('Temperature (K)', fontsize=14)
        
     fig.autofmt_xdate()
@@ -45,6 +56,14 @@ def plot_time_series(da, region_name, date_format):
 
     plt.show()
 
+def plot_hour_series(da, region_name, date_format):
+
+    fig, ax = plt.subplots()
+    da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
+    title = "Daily Mean 2m Temperature over " + region_name
+    format_hourseries(fig, ax, title, date_format)
+
+    plt.show()
 
 def process_data_daily_mean(ds, location):
     spatial_subset = slice_location(ds, location) 
@@ -64,6 +83,8 @@ def process_data_hourly_mean(ds, location, day):
 
     return hourly_temp
 
+def fname(arg):
+    pass
 
 
 if __name__ == "__main__":
@@ -86,6 +107,7 @@ if __name__ == "__main__":
     day = '2022-07-01'
     daily_mean_temp = process_data_daily_mean(ds, location)
     hourly_mean_temp = process_data_hourly_mean(ds, location, day)
+    plot_hour_series(hourly_mean_temp, region_name, hourly_format)
     # plot_time_series(hourly_mean_temp, region_name, hourly_format)
     print(hourly_mean_temp.step)
 
