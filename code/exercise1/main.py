@@ -5,6 +5,27 @@ import xarray as xr
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
+class PlotFormatter:
+    def __init__(self, fig, ax):
+        self.fig = fig
+        self.ax = ax
+
+    def format_grid(self, linestyle='--', linewidth=0.5):
+        self.ax.grid(True, which='both', linestyle=linestyle, linewidth=linewidth)
+        
+    def format_title(self, title, fontsize=16):
+        self.ax.set_title(title, fontsize=fontsize)
+
+    def format_labels(self, xlabel='Date', ylabel='Temperature (K)', fontsize=14):
+        self.ax.set_xlabel(xlabel, fontsize=fontsize)
+        self.ax.set_ylabel(ylabel, fontsize=fontsize)
+        
+    def format_date(self, date_format, interval=2):
+        self.ax.xaxis.set_major_locator(mdates.DayLocator(interval=interval))
+        self.ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))
+        self.fig.autofmt_xdate()
+
+
 # Exercise 1
 def load_dataset(filename):
 
