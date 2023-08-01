@@ -83,6 +83,11 @@ def plot_hour_series(da, region_name, date_format):
     da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
     title = "Daily Mean 2m Temperature over " + region_name
     format_hourseries(fig, ax, title, date_format)
+    
+    formatter = PlotFormatter(fig, ax)
+    formatter.format_title(title)
+    formatter.format_grid()
+    formatter.format_labels()
 
     plt.show()
 
