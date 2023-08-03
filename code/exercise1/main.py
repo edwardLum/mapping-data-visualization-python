@@ -47,15 +47,6 @@ def slice_location(ds, location):
 
     return spatial_subset
 
-#def plot_time_series(da, region_name, date_format):
-#
-#    fig, ax = plt.subplots()
-#    da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
-#    title = "Daily Mean 2m Temperature over " + region_name
-#    format_timeserie_s(fig, ax, title, date_format)
-#
-#    plt.show()
-
 def plot_time_series(ds1, ds2, region_name, date_format):
 
     fig, axs = plt.subplots(2)
@@ -68,14 +59,15 @@ def plot_time_series(ds1, ds2, region_name, date_format):
     formatter1 = PlotFormatter(fig, axs[0])
     formatter1.format_title(title1)
     formatter1.format_grid()
-    formatter1.format_labels()
+    formatter1.format_labels(xlabel="Date")
     formatter1.format_date(date_format)
     
     formatter2 = PlotFormatter(fig, axs[1])
     formatter2.format_title(title2)
     formatter2.format_grid()
-    formatter2.format_labels()
+    formatter2.format_labels(xlabel="Hour")
 
+    plt.subplots_adjust(hspace=3)
     plt.tight_layout()
     plt.show()
 
