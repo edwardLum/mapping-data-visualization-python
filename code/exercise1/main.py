@@ -1,8 +1,10 @@
 import os
+from numpy import who
 
 import xarray as xr
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from xarray.coding.cftime_offsets import MonthEnd
 
 class PlotFormatter:
     def __init__(self, fig, ax):
@@ -31,6 +33,9 @@ def load_dataset(filename):
     file_path = os.path.join(home_dir, 'Code/star-struck/data/', filename)
 
     ds = xr.open_dataset(file_path, engine='cfgrib')
+    
+    # conver Kelvin to Celcius
+    ds['t2m'] -= 273.15
 
     return ds
 
@@ -47,32 +52,45 @@ def slice_location(ds, location):
 #    fig, ax = plt.subplots()
 #    da.plot.line('bo-', ax=ax, linewidth=2)  # a thicker blue line
 #    title = "Daily Mean 2m Temperature over " + region_name
-#    format_timeseries(fig, ax, title, date_format)
+#    format_timeserie_s(fig, ax, title, date_format)
 #
 #    plt.show()
 
-def plot_time_series(da, region_name, date_format):
+def plot_time_series(ds1, ds2, region_name, date_format):
 
-    fig, ax = plt.subplots()
-    da.plot.line()  
-    title = "Daily Mean 2m Temperature over " + region_name
+    fig, axs = plt.subplots(2)
+    ds1.plot.line(ax=axs[0])  
+    ds2.plot.line(ax=axs[1])  
     
-    formatter = PlotFormatter(fig, ax)
-    formatter.format_title(title)
-    formatter.format_grid()
-    formatter.format_labels()
+    title1 = "Daily Mean 2m Temperature over " + region_name
+    title2 = "Hourly Mean 2m Temperature over " + region_name
 
+    formatter1 = PlotFormatter(fig, axs[0])
+    formatter1.format_title(title1)
+    formatter1.format_grid()
+    formatter1.format_labels()
+    formatter1.format_date(date_format)
+    
+    formatter2 = PlotFormatter(fig, axs[1])
+    formatter2.format_title(title2)
+    formatter2.format_grid()
+    formatter2.format_labels()
+
+    plt.tight_layout()
     plt.show()
 
-def process_data_hourly_mean(ds, location, day):
-    spatial_subset = slice_location(ds, location) 
-    spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
-    hourly_temp = spatial_mean.sel(time=day)
-    
-    return hourly_temp
+def get_spatial_mean_temperature(ds, location):
+    spatial_subset = slice_location(ds, location)
+
+    return spatial_subset.mean(dim=['latitude', 'longitude'])
+
+def get_monthly_mean_temperature(ds, location):
+    spatial_mean_temperature = get_spatial_mean_temperature(ds, location)
+
+    return spatial_mean_temperature.mean('step')
 
 def process_data_hourly(ds, location):
-
+    
     spatial_subset = slice_location(ds, location) 
     spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
     hourly_temperature = spatial_mean.groupby('step').mean('time')
@@ -86,22 +104,20 @@ if __name__ == "__main__":
     file_path = os.path.join(home_dir, 'Code/star-struck/data/download.grib')
 
     ds = load_dataset(file_path)
-    ds['t2m'] -= 273.15
+
     # Define Attica region
     lat_min, lat_max = 38.25, 37.70 
     lon_min, lon_max = 23.45, 24.25
     region_name = 'Attica'
     
-    print(ds)
     location = {'latitude': (lat_min, lat_max),
                 'longitude': (lon_min, lon_max)}
     
     date_format = '%Y-%m-%d'
     hourly_format = '%H:%M'
     
-    day = '2022-07-01'
-    hourly_mean_temp = process_data_hourly(ds, location)
-    # plot_hour_series(hourly_mean_temp, region_name, hourly_format)
-    plot_time_series(hourly_mean_temp, region_name, hourly_format)
-    print(hourly_mean_temp.step)
+    monthly_mean_temperature = get_monthly_mean_temperature(ds, location)
+    hourly_mean_temperature = process_data_hourly(ds, location)
+ 
+    plot_time_series(monthly_mean_temperature, hourly_mean_temperature, region_name, date_format)
 
