@@ -49,7 +49,7 @@ def slice_location(ds, location):
 
 def plot_time_series(ds1, ds2, region_name, date_format):
 
-    fig, axs = plt.subplots(2, figsize=(10, 6))
+    fig, axs = plt.subplots(2, figsize=(12, 8))
     ds1.plot.line(ax=axs[0])  
     ds2.plot.line(ax=axs[1])  
     
@@ -67,9 +67,10 @@ def plot_time_series(ds1, ds2, region_name, date_format):
     formatter2.format_grid()
     formatter2.format_labels(xlabel="Hour")
 
-    plt.subplots_adjust(hspace=6)
-    plt.setp(axs[0].get_xticklabels(), rotation=30)
-    plt.tight_layout()
+    # plt.tight_layout()
+    plt.subplots_adjust(hspace=0.633, left=0.085, bottom=0.1,
+                        right=0.924, top=0.915, wspace=0.2)
+    plt.setp(axs[0].get_xticklabels(), rotation=45)
     plt.show()
 
 def get_spatial_mean_temperature(ds, location):
