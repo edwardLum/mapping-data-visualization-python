@@ -17,14 +17,14 @@ class PlotFormatter:
     def format_title(self, title, fontsize=16):
         self.ax.set_title(title, fontsize=fontsize)
 
-    def format_labels(self, xlabel='Date', ylabel='Temperature (K)', fontsize=14):
+    def format_labels(self, xlabel, ylabel='Temperature (C)', fontsize=14):
         self.ax.set_xlabel(xlabel, fontsize=fontsize)
         self.ax.set_ylabel(ylabel, fontsize=fontsize)
         
     def format_date(self, date_format, interval=2):
         self.ax.xaxis.set_major_locator(mdates.DayLocator(interval=interval))
         self.ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))
-        self.fig.autofmt_xdate()
+        # self.fig.autofmt_xdate()
 
 
 def load_dataset(filename):
@@ -49,7 +49,7 @@ def slice_location(ds, location):
 
 def plot_time_series(ds1, ds2, region_name, date_format):
 
-    fig, axs = plt.subplots(2)
+    fig, axs = plt.subplots(2, figsize=(10, 6))
     ds1.plot.line(ax=axs[0])  
     ds2.plot.line(ax=axs[1])  
     
@@ -67,7 +67,8 @@ def plot_time_series(ds1, ds2, region_name, date_format):
     formatter2.format_grid()
     formatter2.format_labels(xlabel="Hour")
 
-    plt.subplots_adjust(hspace=3)
+    plt.subplots_adjust(hspace=6)
+    plt.setp(axs[0].get_xticklabels(), rotation=30)
     plt.tight_layout()
     plt.show()
 
