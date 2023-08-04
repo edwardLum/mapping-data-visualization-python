@@ -20,6 +20,8 @@ Useful methods:
 
 * [pyplot.setp](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html): To manipulate individual properties of an ax when dealing with subplots.
 
+* [subplots_adjust](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots_adjust.html): To adjust they layout parameters of a subplot.
+
 ### Numpy
 
 NumPy is the fundamental package for scientific computing in Python. 
