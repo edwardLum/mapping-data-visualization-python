@@ -38,6 +38,12 @@ Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrat
 
 **np.exp**: Calculate the exponential of all elements in the input array. Ref [here](https://numpy.org/doc/stable/reference/generated/numpy.exp.html).
 
+**Data types**
+
+**timedelta64**: The timedelta64 data type is a part of the numpy library, which xarray builds upon. It represents a time interval or a duration of time.
+
+The timedelta64 data type requires a unit of time (for example, days, hours, minutes, seconds, etc.), and can be used to perform arithmetic operations involving time. This makes it very useful for handling time-series data. Doc [here](https://numpy.org/doc/stable/reference/arrays.datetime.html).
+
 ### Pandas
 
 **Data Structures**

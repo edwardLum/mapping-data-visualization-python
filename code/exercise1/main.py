@@ -113,5 +113,6 @@ if __name__ == "__main__":
     monthly_mean_temperature = get_monthly_mean_temperature(ds, location)
     hourly_mean_temperature = process_data_hourly(ds, location)
  
-    plot_time_series(monthly_mean_temperature, hourly_mean_temperature, region_name, date_format)
+    # plot_time_series(monthly_mean_temperature, hourly_mean_temperature, region_name, date_format)
+    print(ds.time)
 
