@@ -44,6 +44,10 @@ Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrat
 
 The timedelta64 data type requires a unit of time (for example, days, hours, minutes, seconds, etc.), and can be used to perform arithmetic operations involving time. This makes it very useful for handling time-series data. Doc [here](https://numpy.org/doc/stable/reference/arrays.datetime.html).
 
+The timedelta64 values you have shown are in nanoseconds. The timedelta64 type in NumPy and pandas is represented as a count of a specific unit of time, from nanoseconds all the way up to years. By default, if the unit isn't specified, it's understood as nanoseconds.
+
+For example, 3600000000000 nanoseconds is equal to 1 hour. This is because 1 hour equals 60 minutes, 1 minute equals 60 seconds, and 1 second equals 1,000,000,000 nanoseconds (or 10^9 nanoseconds). So, 1 hour = 60 * 60 * 1,000,000,000 = 3,600,000,000,000 or 3.6 * 10^12 nanoseconds.
+
 ### Pandas
 
 **Data Structures**
