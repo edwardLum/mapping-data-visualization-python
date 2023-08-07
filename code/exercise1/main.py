@@ -1,7 +1,7 @@
 import os
-from numpy import who
 
 import xarray as xr
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from xarray.coding.cftime_offsets import MonthEnd
@@ -25,6 +25,12 @@ class PlotFormatter:
         self.ax.xaxis.set_major_locator(mdates.DayLocator(interval=interval))
         self.ax.xaxis.set_major_formatter(mdates.DateFormatter(date_format))
         # self.fig.autofmt_xdate()
+
+    def format_hour(self, interval=2):
+        labels = [(str(x) + ":00" if x > 10 else "0" + str(x) + ":00") for x in range(0, 24, 2)]
+        self.ax.set_xticks(np.arange(0,24, 2))
+        print(labels)
+        self.ax.set_xticklabels(labels)
 
 
 def load_dataset(filename):
@@ -66,6 +72,7 @@ def plot_time_series(ds1, ds2, region_name, date_format):
     formatter2.format_title(title2)
     formatter2.format_grid()
     formatter2.format_labels(xlabel="Hour")
+    formatter2.format_hour()
 
     # plt.tight_layout()
     plt.subplots_adjust(hspace=0.633, left=0.085, bottom=0.1,
