@@ -89,6 +89,9 @@ def process_data_hourly(ds, location):
     spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
     hourly_temperature = spatial_mean.groupby('step').mean('time')
 
+    # convert nanoseconds to hour in the step coordinate
+    hourly_temperature['step'] = hourly_temperature['step'] / (1e9 * 60 * 60)
+
     return hourly_temperature
 
 
@@ -113,6 +116,6 @@ if __name__ == "__main__":
     monthly_mean_temperature = get_monthly_mean_temperature(ds, location)
     hourly_mean_temperature = process_data_hourly(ds, location)
  
-    # plot_time_series(monthly_mean_temperature, hourly_mean_temperature, region_name, date_format)
-    print(ds.time)
+    plot_time_series(monthly_mean_temperature, hourly_mean_temperature, region_name, date_format)
+    # print(ds.time)
 
