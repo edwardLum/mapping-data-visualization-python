@@ -7,7 +7,17 @@ import matplotlib.dates as mdates
 from xarray.coding.cftime_offsets import MonthEnd
 
 class PlotFormatter:
+    """
+    A helper class for formatting matplotlib plots.
+    """
     def __init__(self, fig, ax):
+        """
+        Initialize the PlotFormatter with a given figure and axis.
+
+        Parameters:
+        - fig (matplotlib.figure.Figure): The figure containing the plot.
+        - ax (matplotlib.axes._subplots.AxesSubplot): The axis of the plot to be formatted.
+        """
         self.fig = fig
         self.ax = ax
 
@@ -34,18 +44,38 @@ class PlotFormatter:
 
 
 def load_dataset(filename):
+    """
+    Load a dataset from a given file path.
+
+    Parameters:
+    - filename (str): The path to the dataset file.
+
+    Returns:
+    - xarray.Dataset: The loaded dataset with temperature in Celsius.
+    """
 
     home_dir = os.path.expanduser('~')
     file_path = os.path.join(home_dir, 'Code/star-struck/data/', filename)
 
     ds = xr.open_dataset(file_path, engine='cfgrib')
     
-    # conver Kelvin to Celcius
+    # convert Kelvin to Celcius
     ds['t2m'] -= 273.15
 
     return ds
 
 def slice_location(ds, location):
+    """
+    Extracts a spatial subset of the dataset for a given location.
+
+    Parameters:
+    - ds (xarray.Dataset): The dataset to be subsetted.
+    - location (dict): Dictionary containing latitude and longitude ranges.
+
+    Returns:
+    - xarray.DataArray: A spatial subset of the 2m temperature data.
+    """
+
     lat_min, lat_max = location['latitude']
     lon_min, lon_max = location['longitude']
 
@@ -54,6 +84,15 @@ def slice_location(ds, location):
     return spatial_subset
 
 def plot_time_series(ds1, ds2, region_name, date_format):
+    """
+    Plots two time series on separate subplots.
+
+    Parameters:
+    - ds1 (xarray.DataArray): Data for the first subplot (e.g., daily mean temperature).
+    - ds2 (xarray.DataArray): Data for the second subplot (e.g., hourly mean temperature).
+    - region_name (str): The name of the region being plotted.
+    - date_format (str): The format of the date to be displayed on the x-axis.
+    """
 
     fig, axs = plt.subplots(2, figsize=(12, 8))
     ds1.plot.line(ax=axs[0])  
@@ -81,17 +120,46 @@ def plot_time_series(ds1, ds2, region_name, date_format):
     plt.show()
 
 def get_spatial_mean_temperature(ds, location):
+    """
+    Get the spatial mean temperature for a given location.
+
+    Parameters:
+    - ds (xarray.Dataset): The dataset containing temperature data.
+    - location (dict): Dictionary containing latitude and longitude ranges.
+
+    Returns:
+    - xarray.DataArray: Spatial mean temperature.
+    """
     spatial_subset = slice_location(ds, location)
 
     return spatial_subset.mean(dim=['latitude', 'longitude'])
 
 def get_monthly_mean_temperature(ds, location):
+    """
+    Computes the monthly mean temperature for a given location.
+
+    Parameters:
+    - ds (xarray.Dataset): The dataset containing temperature data.
+    - location (dict): Dictionary containing latitude and longitude ranges.
+
+    Returns:
+    - xarray.DataArray: Monthly mean temperature.
+    """
     spatial_mean_temperature = get_spatial_mean_temperature(ds, location)
 
     return spatial_mean_temperature.mean('step')
 
 def process_data_hourly(ds, location):
-    
+    """
+    Processes the dataset to compute the hourly mean temperature for a given location.
+
+    Parameters:
+    - ds (xarray.Dataset): The dataset containing temperature data.
+    - location (dict): Dictionary containing latitude and longitude ranges.
+
+    Returns:
+    - xarray.DataArray: Hourly mean temperature.
+    """
     spatial_subset = slice_location(ds, location) 
     spatial_mean = spatial_subset.mean(dim=['latitude', 'longitude'])
     hourly_temperature = spatial_mean.groupby('step').mean('time')
