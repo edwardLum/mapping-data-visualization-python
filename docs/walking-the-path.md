@@ -105,7 +105,7 @@ Building a query [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reana
 1. Download data temperature from [here](https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=form)
 2. Read data with Xarray
 3. Plot time series for a specific location
-4. Rescale to daily temparature
+4. Rescale to daily temparature. Lat and Long values should be the same and step should be one mean max min daily temperature pixel.
 5. Min, Max, Mean
 6. Save only min, max, mean
 7. Find mean day/night temp 
