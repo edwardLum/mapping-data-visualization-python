@@ -82,6 +82,14 @@ A multi-dimensional array with labeled or named dimensions. DataArray objects ad
 
 A dict-like collection of DataArray objects with aligned dimensions. Thus, most operations that can be performed on the dimensions of a single DataArray can be performed on a dataset. Datasets have data variables (see Variable below), dimensions, coordinates, and attributes.
 
+**Useful methods**
+
+**isel** 
+
+Doc [here](https://docs.xarray.dev/en/latest/generated/xarray.Dataset.isel.html).
+Isel allows for index-based selection, enabling you to subset or extract data from a Dataset or DataArray by specifying integer indices for specified dimensions, thus returning a view with reduced dimensionality or a specific slice of the data.
+
+
 ## APIs
 
 ### CDS
