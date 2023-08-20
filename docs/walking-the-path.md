@@ -56,6 +56,8 @@ The timedelta64 values you have shown are in nanoseconds. The timedelta64 type i
 
 For example, 3600000000000 nanoseconds is equal to 1 hour. This is because 1 hour equals 60 minutes, 1 minute equals 60 seconds, and 1 second equals 1,000,000,000 nanoseconds (or 10^9 nanoseconds). So, 1 hour = 60 * 60 * 1,000,000,000 = 3,600,000,000,000 or 3.6 * 10^12 nanoseconds.
 
+**Plotting** reference [here](https://docs.xarray.dev/en/latest/user-guide/plotting.html#maps).
+
 ### Pandas
 
 **Data Structures**
