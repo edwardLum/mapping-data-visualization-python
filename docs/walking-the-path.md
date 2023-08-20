@@ -28,6 +28,10 @@ Useful methods:
 
 * [subplots_adjust](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots_adjust.html): To adjust they layout parameters of a subplot.
 
+**Tips**
+
+* The keyword arguments xincrease and yincrease let you control the axes direction - check [here](https://docs.xarray.dev/en/latest/user-guide/plotting.html#other-axes-kwargs).
+
 ### Numpy
 
 NumPy is the fundamental package for scientific computing in Python. 
