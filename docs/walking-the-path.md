@@ -16,6 +16,12 @@ Most of the functionality is available in the pyplot submodule. There are two im
 * [Figure](https://matplotlib.org/stable/api/figure_api.html): This is the main container of the plot. A figure can contain multiple plots inside it
 * [Axes](https://matplotlib.org/stable/api/axes_api.html): The Axes class represents one (sub-)plot in a figure. It contains the plotted data, axis ticks, labels, title, legend, etc. Its methods are the main interface for manipulating the plot. 
 
+**Types of plots**
+
+[pyplot.line](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html): Plot y versus x as lines and/or markers.
+
+[pyplot.step](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.step.html): Make a step plot.
+
 Useful methods:
 
 * [pyplot.setp](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html): To manipulate individual properties of an ax when dealing with subplots.
