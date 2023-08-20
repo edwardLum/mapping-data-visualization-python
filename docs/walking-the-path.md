@@ -44,6 +44,8 @@ Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrat
 
 **np.exp**: Calculate the exponential of all elements in the input array. Ref [here](https://numpy.org/doc/stable/reference/generated/numpy.exp.html).
 
+**np.std**: Compute the standard deviation along the specified axis. Returns the standard deviation, a measure of the spread of a distribution, of the array elements. The standard deviation is computed for the flattened array by default, otherwise over the specified axis. Doc [here](https://numpy.org/doc/stable/reference/generated/numpy.std.html).
+
 **Data types**
 
 **timedelta64**: The timedelta64 data type is a part of the numpy library, which xarray builds upon. It represents a time interval or a duration of time.
