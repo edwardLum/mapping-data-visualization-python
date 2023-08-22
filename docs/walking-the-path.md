@@ -50,6 +50,8 @@ Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrat
 
 **np.std**: Compute the standard deviation along the specified axis. Returns the standard deviation, a measure of the spread of a distribution, of the array elements. The standard deviation is computed for the flattened array by default, otherwise over the specified axis. Doc [here](https://numpy.org/doc/stable/reference/generated/numpy.std.html).
 
+**np.random.rand**: Random values in a given shape. Doc [here](https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html)
+
 **Data types**
 
 **timedelta64**: The timedelta64 data type is a part of the numpy library, which xarray builds upon. It represents a time interval or a duration of time.
