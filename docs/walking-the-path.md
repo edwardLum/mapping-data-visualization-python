@@ -50,7 +50,7 @@ Worth checking this [visual guide](https://betterprogramming.pub/numpy-illustrat
 
 **np.std**: Compute the standard deviation along the specified axis. Returns the standard deviation, a measure of the spread of a distribution, of the array elements. The standard deviation is computed for the flattened array by default, otherwise over the specified axis. Doc [here](https://numpy.org/doc/stable/reference/generated/numpy.std.html).
 
-**np.random.rand**: Random values in a given shape. Doc [here](https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html)
+**np.random.rand**: Random values in a given shape. 	Doc [here](https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html)
 
 **Data types**
 
@@ -92,7 +92,15 @@ Xarray introduces labels in the form of dimensions, coordinates and attributes o
 
 **Data Array**
 
-A multi-dimensional array with labeled or named dimensions. DataArray objects add metadata such as dimension names, coordinates, and attributes (defined below) to underlying “unlabeled” data structures such as numpy and Dask arrays. If its optional name property is set, it is a named DataArray.
+A multi-dimensional array with labeled or named dimensions. DataArray objects add metadata such as dimension names, coordinates, and attributes (defined below) to underlying “unlabeled” data structures such as numpy and Dask arrays. If its optional name property is set, it is a named DataArray. Reference [here](https://docs.xarray.dev/en/v2023.08.0/user-guide/data-structures.html)
+
+The DataArray constructor takes:
+
+* data: a multi-dimensional array of values (e.g., a numpy ndarray, a numpy-like array, Series, DataFrame or pandas.Panel)
+* coords: a list or dictionary of coordinates. If a list, it should be a list of tuples where the first element is the dimension name and the second element is the corresponding coordinate array_like object.
+* dims: a list of dimension names. If omitted and coords is a list of tuples, dimension names are taken from coords.
+* attrs: a dictionary of attributes to add to the instance
+* name: a string that names the instance
 
 **Data Set**
 
