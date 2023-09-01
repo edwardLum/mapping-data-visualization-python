@@ -134,17 +134,21 @@ Consider techniques like the IQR method, Z-scores, or domain-specific knowledge 
 **Normalize/Standardize Data:**
 
 If you're planning to use algorithms sensitive to magnitudes (e.g., k-means, PCA), consider standardizing (zero mean and unit variance) or normalizing (between 0 and 1) your data.
-Categorical Data Handling:
+
+**Categorical Data Handling:**
 
 Use value_counts() to inspect unique values and counts for categorical columns.
 Consider encoding categorical data using techniques like one-hot encoding (pd.get_dummies()) or ordinal encoding.
-Feature Engineering:
+
+**Feature Engineering:**
 
 Depending on the goals of your analysis, you might want to create new features from the existing data, such as computing ratios, aggregations, or extracting information from text.
-Setting Index:
+
+**Setting Index:**
 
 Sometimes, setting a particular column as an index (e.g., time series data with timestamps) can be beneficial: set_index().
-Save a Cleaned Version:
+
+**Save a Cleaned Version:**
 
 Always a good idea to save the cleaned and preprocessed version of the dataset for reproducibility and ease of access later.
 
