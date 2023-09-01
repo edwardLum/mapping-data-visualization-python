@@ -86,6 +86,68 @@ By “group by” we are referring to a process involving one or more of the fol
 
 **pd.concat**: Concatenate a list of data frames. Documentation [here](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.concat.html)
 
+**Preprocessing data**
+
+Preliminary steps and checks that should be performed to ensure data quality and understanding:
+
+**View the DataFrame:**
+
+head(), tail(): Quickly view the first and last few rows.
+
+sample(): View a random sample of rows.
+
+**Basic Information:**
+
+info(): Check the number of non-null entries, datatype of each column, and memory usage.
+shape: Check the number of rows and columns.
+
+**Descriptive Statistics:**
+
+describe(): Generate descriptive statistics that summarize the central tendency, dispersion, and shape of the distribution of a dataset.
+
+**Check for Missing Data:**
+
+isnull().sum(): Count missing values for each column.
+Depending on the context, decide on how to handle them (e.g., imputation, removal).
+
+**Check Data Types:**
+
+Ensure that each column has the appropriate data type (e.g., 'float64', 'int64', 'object', 'datetime64').
+Convert columns to their appropriate data type if needed, using astype() or functions like pd.to_datetime().
+
+**Check for Duplicates:**
+
+duplicated().sum(): Check for duplicate rows.
+drop_duplicates(): Remove any duplicates if they're not supposed to be there.
+
+**Exploratory Data Analysis (EDA):**
+
+Univariate Analysis: Plot histograms, boxplots, or frequency counts for individual variables.
+Bivariate Analysis: Examine relationships between pairs of variables using scatter plots, correlation coefficients, and crosstabs.
+Multivariate Analysis: Visualize multiple variables using techniques like pairplots, heatmap of correlations, and multidimensional scaling.
+
+**Outliers Detection:**
+
+For numeric columns, outliers can often be spotted using boxplots or scatter plots.
+Consider techniques like the IQR method, Z-scores, or domain-specific knowledge to detect and handle outliers.
+
+**Normalize/Standardize Data:**
+
+If you're planning to use algorithms sensitive to magnitudes (e.g., k-means, PCA), consider standardizing (zero mean and unit variance) or normalizing (between 0 and 1) your data.
+Categorical Data Handling:
+
+Use value_counts() to inspect unique values and counts for categorical columns.
+Consider encoding categorical data using techniques like one-hot encoding (pd.get_dummies()) or ordinal encoding.
+Feature Engineering:
+
+Depending on the goals of your analysis, you might want to create new features from the existing data, such as computing ratios, aggregations, or extracting information from text.
+Setting Index:
+
+Sometimes, setting a particular column as an index (e.g., time series data with timestamps) can be beneficial: set_index().
+Save a Cleaned Version:
+
+Always a good idea to save the cleaned and preprocessed version of the dataset for reproducibility and ease of access later.
+
 ### Xarray
 
 Xarray introduces labels in the form of dimensions, coordinates and attributes on top of raw NumPy-like multidimensional arrays, which allows for a more intuitive, more concise, and less error-prone developer experience. User guide [here](https://docs.xarray.dev/en/stable/user-guide/index.html)
