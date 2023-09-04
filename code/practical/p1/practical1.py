@@ -38,34 +38,41 @@ def load_dataset(filename):
 
     return ds
 
-def main(ds):
+def process_data(ds):
     
+    datasets = {} 
+
     # Group by and reduce by mean step
     temperature_arr = ds["t2m"]
 
     # Reduce by mean time to get mean monthly temp
     mean_daily_temperature = temperature_arr.groupby("time").mean("step")
     mean_temperature = mean_daily_temperature.mean(dim="time")
+    datasets["Mean Temperature"] = mean_temperature
 
     # Same as above for minimum temperature
     min_daily_temperature = temperature_arr.groupby("time").min("step")
     min_temperature = min_daily_temperature.min(dim="time")
+    datasets["Min Temperature"] = min_temperature
 
     # Same as above for minimum temperature
     max_daily_temperature = temperature_arr.groupby("time").max("step")
     max_temperature = max_daily_temperature.max(dim="time")
+    datasets["Max Temperature"] = max_temperature
+    
+    return datasets
+
+def plot_graphs(datasets):
 
     # Plot everything in one figure
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
     ax4.axis('off')  # Turn off the 4th axis since you mentioned you only want 3 plots
+    axes = [ax1, ax2, ax3]
     
-    # Define location_extent for Athens
-    location_extent = [19.37, 29.57, 34.8, 41.7]
+    axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axes)]
         
-    # Now plot the data on the axes
-    plot_temperature_on_ax(ax1, mean_temperature, 'Mean Temperature', locations["Greece"])
-    plot_temperature_on_ax(ax2, min_temperature, 'Min Temperature', locations["Greece"])
-    plot_temperature_on_ax(ax3, max_temperature, 'Max Tempertaure', locations["Greece"])
+    for name, dataset, ax in axes_and_datasets:
+        plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
 
     plt.tight_layout()
     plt.show()
@@ -73,4 +80,5 @@ def main(ds):
 if __name__=="__main__":
     filename = "download.grib"
     ds = load_dataset(filename)
-    main(ds)
+    datasets = process_data(ds)
+    plot_graphs(datasets)
