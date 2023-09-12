@@ -43,36 +43,39 @@ def process_data(ds):
     datasets = {} 
 
     # Group by and reduce by mean step
-    temperature_arr = ds["t2m"]
+    temperature_array = ds["t2m"]
 
     # Reduce by mean time to get mean monthly temp
-    mean_daily_temperature = temperature_arr.groupby("time").mean("step")
+    mean_daily_temperature = temperature_array.groupby("time").mean("step")
     mean_temperature = mean_daily_temperature.mean(dim="time")
     datasets["Mean Temperature"] = mean_temperature
 
     # Same as above for minimum temperature
-    min_daily_temperature = temperature_arr.groupby("time").min("step")
+    min_daily_temperature = temperature_array.groupby("time").min("step")
     min_temperature = min_daily_temperature.min(dim="time")
     datasets["Min Temperature"] = min_temperature
 
     # Same as above for minimum temperature
-    max_daily_temperature = temperature_arr.groupby("time").max("step")
+    max_daily_temperature = temperature_array.groupby("time").max("step")
     max_temperature = max_daily_temperature.max(dim="time")
     datasets["Max Temperature"] = max_temperature
+
+    # Hourly temperature for a given day 
+    hourly_temperature = temperature_array.sel(time="2022-08-02", latitude=40, longitude=22, method="nearest")
+    datasets["Hourly Temperature"] = hourly_temperature
     
     return datasets
 
 def plot_graphs(datasets):
 
     # Plot everything in one figure
-    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
-    ax4.axis('off')  # Turn off the 4th axis since you mentioned you only want 3 plots
-    axes = [ax1, ax2, ax3]
+    fig, axs = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
     
-    axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axes)]
+    axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axs)]
         
     for name, dataset, ax in axes_and_datasets:
-        plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
+        if name != "Hourly Temperature":
+            plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
 
     plt.tight_layout()
     plt.show()
@@ -81,4 +84,4 @@ if __name__=="__main__":
     filename = "download.grib"
     ds = load_dataset(filename)
     datasets = process_data(ds)
-    plot_graphs(datasets)
+    # plot_graphs(datasets)
