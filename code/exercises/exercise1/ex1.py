@@ -71,17 +71,17 @@ def plot_graphs(datasets):
     # Plot everything in one figure
     fig, axs = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
     
-    axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axs)]
-        
-    for name, dataset, ax in axes_and_datasets:
-        if name != "Hourly Temperature":
-            plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
+    print(axs)
 
-    plt.tight_layout()
-    plt.show()
+    # for name, dataset, ax in axes_and_datasets:
+    #    if name != "Hourly Temperature":
+    #         plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
+
+    # plt.tight_layout()
+    # plt.show()
 
 if __name__=="__main__":
     filename = "download.grib"
     ds = load_dataset(filename)
     datasets = process_data(ds)
-    # plot_graphs(datasets)
+    plot_graphs(datasets)
