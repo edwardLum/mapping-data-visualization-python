@@ -12,11 +12,6 @@ import cartopy.feature as cfeature
 locations = {"Greece": [19.37, 29.57, 34.8, 41.7],
              "Attica": [23.4, 24.3, 37.6, 38.3],}
 
-class DataSetHolder():
-
-    def __init_(self, dataset, ax, title):
-        pass
-
 
 def plot_temperature_on_ax(ax, data, title, location_extent):    
     """Plot data to ax with title as ax title."""
@@ -31,6 +26,7 @@ def plot_temperature_on_ax(ax, data, title, location_extent):
     ax.add_feature(cfeature.BORDERS, linestyle=':')
     ax.set_title(title)
 
+
 def load_dataset(filename):
     home_dir = os.path.expanduser('~')
     file_path = os.path.join(home_dir, 'Code/star-struck/data/', filename)
@@ -44,6 +40,7 @@ def load_dataset(filename):
 
     return ds
 
+
 def process_data(ds):
     
     datasets = {} 
@@ -52,7 +49,7 @@ def process_data(ds):
     temperature_array = ds["t2m"]
 
     # Reduce by mean time to get mean monthly temp
-    kmean_daily_temperature = temperature_array.groupby("time").mean("step")
+    mean_daily_temperature = temperature_array.groupby("time").mean("step")
     mean_temperature = mean_daily_temperature.mean(dim="time")
     datasets["Mean Temperature"] = mean_temperature
 
@@ -72,18 +69,21 @@ def process_data(ds):
     
     return datasets
 
+
 def plot_graphs(datasets):
 
     # Plot everything in one figure
-    fig, axs = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()}) 
     
+    axes = [ax1, ax2, ax3]
+    axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axes)]
     
-    # for name, dataset, ax in axes_and_datasets:
-    #    if name != "Hourly Temperature":
-    #         plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
-
-    # plt.tight_layout()
-    # plt.show()
+    for name, dataset, ax in axes_and_datasets:
+        if name != "Hourly Temperature":
+             plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
+    
+    plt.tight_layout()
+    plt.show()
 
 if __name__=="__main__":
     filename = "download.grib"
