@@ -75,12 +75,15 @@ def plot_graphs(datasets):
     # Plot everything in one figure
     fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()}) 
     
-    axes = [ax1, ax2, ax3]
+    axes = [ax1, ax2, ax3, ax4]
     axes_and_datasets = [(name, dataset, ax) for (name, dataset), ax in zip(datasets.items(), axes)]
     
     for name, dataset, ax in axes_and_datasets:
         if name != "Hourly Temperature":
              plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
+        
+        ax.plot(dataset)
+        ax.set_title("Hourly temperature on 2022-08-02")
     
     plt.tight_layout()
     plt.show()
