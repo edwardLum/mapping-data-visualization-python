@@ -12,6 +12,12 @@ import cartopy.feature as cfeature
 locations = {"Greece": [19.37, 29.57, 34.8, 41.7],
              "Attica": [23.4, 24.3, 37.6, 38.3],}
 
+class DataSetHolder():
+
+    def __init_(self, dataset, ax, title):
+        pass
+
+
 def plot_temperature_on_ax(ax, data, title, location_extent):    
     """Plot data to ax with title as ax title."""
     ax.set_extent(location_extent)  # loation = lon_min, lon_max, lat_min, lat_max] covering approx. Greece area
@@ -46,7 +52,7 @@ def process_data(ds):
     temperature_array = ds["t2m"]
 
     # Reduce by mean time to get mean monthly temp
-    mean_daily_temperature = temperature_array.groupby("time").mean("step")
+    kmean_daily_temperature = temperature_array.groupby("time").mean("step")
     mean_temperature = mean_daily_temperature.mean(dim="time")
     datasets["Mean Temperature"] = mean_temperature
 
@@ -71,8 +77,7 @@ def plot_graphs(datasets):
     # Plot everything in one figure
     fig, axs = plt.subplots(2, 2, subplot_kw={'projection': ccrs.PlateCarree()})
     
-    print(axs)
-
+    
     # for name, dataset, ax in axes_and_datasets:
     #    if name != "Hourly Temperature":
     #         plot_temperature_on_ax(ax, dataset, name, locations["Greece"])
